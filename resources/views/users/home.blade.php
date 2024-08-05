@@ -1,36 +1,48 @@
 @extends('users.layouts.default')
 
 @section('content')
-    <!--end::Header Section-->
     <div class="mb-n10 mb-lg-n20 z-index-2">
         <div class="container mb-10">
             <div class="text-center mb-17">
-                <h3 class="fs-2hx text-gray-900 mb-5" id="how-it-works"
-                    data-kt-scroll-offset="{default: 100, lg: 150}">Danh sách sản phẩm</h3>
+                <h3 class="fs-2hx text-gray-900 mb-5" id="how-it-works" data-kt-scroll-offset="{default: 100, lg: 150}">
+                    Danh sách sản phẩm
+                </h3>
             </div>
             <div class="mb-5">
-                <input type="text" class="form-control" placeholder="Search" id="search-product">
-                <div id="result">
-
-                </div>
+                <input type="text" class="form-control" placeholder="Tìm kiếm sản phẩm..." id="search-product">
+                <div id="result"></div>
             </div>
             <div class="row w-100 gy-10 mb-md-20">
                 @foreach($products as $key => $value)
-                    <a href="{{ route('users.detailProduct') }}?idProduct={{ $value->id }}" class="col-md-4 px-5">
-                        <div class="text-center mb-10 mb-md-0">
-                            <img src="{{ asset($value->images[0]->image_url ) }}" class="mh-125px mb-9" alt="" />
-                            <div class="d-flex flex-center mb-5">
-                                <div class="fs-5 fs-lg-3 fw-bold text-gray-900">{{  $value->name }}</div>
-                            </div>
-                            <div class="fw-semibold fs-6 fs-lg-4 text-muted">
-                                {{ $value->description }}
+                    <div class="col-md-4 px-5">
+                        <div class="card mb-4 shadow-sm">
+                            <img src="{{ asset($value->images[0]->image_url) }}" class="card-img-top" alt="{{ $value->name }}">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">{{ $value->name }}</h5>
+                                <p class="card-text">{{ $value->description }}</p>
+                                <p class="card-text text-muted">{{ number_format($value->price) }} VNĐ</p>
+                                <a href="{{ route('users.detailProduct') }}?idProduct={{ $value->id }}" class="btn btn-primary">Xem chi tiết</a>
+                                <form action="{{ route('users.addToCart') }}" method="post" class="d-inline-block mt-2">
+                                    @csrf
+                                    <input type="hidden" name="product_id" value="{{ $value->id }}">
+                                    <input type="number" name="quantity" value="1" min="1" class="form-control d-inline-block w-auto">
+                                    <button type="submit" class="btn btn-success mt-2">Thêm vào giỏ hàng</button>
+                                </form>
                             </div>
                         </div>
-                    </a>
+                    </div>
                 @endforeach
             </div>
         </div>
     </div>
+
+
+@push('scripts')
+<script>
+    // Add JavaScript for search functionality if needed
+</script>
+@endpush
+
     <!--end::How It Works Section-->
 
 

@@ -14,6 +14,10 @@ Route::get('login', [AuthenController::class, 'login'])->name('login');
 Route::post('login', [AuthenController::class, 'postLogin'])->name('postLogin');
 Route::get('logout', [AuthenController::class, 'logout'])->name('logout');
 
+Route::get('register', [AuthenController::class, 'register'])->name('register');
+Route::post('register', [AuthenController::class, 'postRegister'])->name('postRegister');
+
+
 
 
 // Admin

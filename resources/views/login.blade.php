@@ -31,6 +31,7 @@
             </div>
             <button type="submit" class="btn btn-success mt-3">Đăng nhập</button>
         </form>
+        <a href="{{route('register')}}" class="btn btn-primary mt-2">Đăng ký</a>
     </div>
 
 
